@@ -2,6 +2,7 @@
 import {MongoClient, ServerApiVersion} from 'mongodb';
 import { products } from './products.js';
 // const { MongoClient, ServerApiVersion } = require('mongodb');
+import * as argon2 from "argon2";
 
 //build the uri for our connection string
 const uri = process.env.MONGO_URI || "";
@@ -30,6 +31,10 @@ const init = async () => {
     // initialize the Products collection
     await seedProducts(db);
     console.log(`Collection 'products' initialized successfully`);
+    
+    await createCollections(db);
+    console.log(`Collections 'users', 'alerts', and 'orders' initialized successfully`);
+    
   } catch (error) {
     console.error(error.message);
   } finally {
@@ -91,9 +96,61 @@ const seedProducts = async (db) => {
             `${result.insertedCount} new listing(s) created with the following id(s):`
         );
         console.log(result.insertedIds);
+
+        await db.collection("products").createIndex({ name: 1 });
+        await db.collection("products").createIndex({ description: 1 });
+        await db.collection("products").createIndex({ category: 1 });
+        await db.collection("products").createIndex({ id: 1 });
+
     } catch (error) {
       console.error(error.message);
     }
+};
+
+const createCollections = async (db) => {
+  try {
+    await db.collection("alerts").drop();
+    console.log("Collection 'alerts' dropped successfully")
+
+    await db.createCollection("alerts");
+    console.log("Collection 'alerts' created successfully");
+
+    await db.collection("orders").drop();
+    console.log("Collection 'orders' dropped successfully")
+
+    await db.createCollection("orders");
+    console.log("Collection 'orders' created successfully");
+
+    await db.collection("users").drop();
+    console.log("Collection 'users' dropped successfully")
+
+    await db.createCollection("users");
+    console.log("Collection 'users' created successfully");
+
+    const hashedPassword = await argon2.hash("password");
+
+    const result = await db.collection("users").insertOne(
+      {
+        name: "Alex",
+        email: "testuser@email.com",
+        password: hashedPassword,
+        createdAt: Date.now(),
+        updatedAt: Date.now()
+      });
+
+      console.log(
+        `${result.insertedCount} new user created with the following id(s):`
+      );
+      console.log(result.insertedIds);
+
+      await db.collection("users").createIndex({ name: 1 });
+      await db.collection("users").createIndex({ email: 1 });
+
+  }
+
+  catch (error) {
+    console.error(error.message);
+  }
 };
 
 // Call init and handle completion
