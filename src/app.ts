@@ -1,3 +1,4 @@
+import cors from 'cors';
 import express from 'express';
 import path from "path";
 import { fileURLToPath } from "url";
@@ -6,6 +7,7 @@ import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 
 // Local Imports (NOTE: .mts extension is required in ESM)
+
 import routes from './routes/index.mts';
 import EntityNotFoundError from './errors/EntityNotFoundError.mts';
 import {globalErrorHandler} from './middleware/error.middleware.mts';
@@ -42,6 +44,7 @@ app.use('/api', limiter);
 
 // --- 2. ROUTES ---
 // We use versioning (/v1) so we can update the API later without breaking old clients
+app.use(cors()); // Enable CORS for all routes (you can configure this to allow only specific origins if needed)
 app.use('/api/v1/', routes);
 
 
