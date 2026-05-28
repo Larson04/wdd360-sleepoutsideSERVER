@@ -53,7 +53,7 @@ export async function getAllProducts(find:FindProductObj) {
  
 
 async function getProductById(id: string): Promise<Product | null> {
-    const data = (await mongodb.getDb().collection<Product>("products").findOne({ _id: id }));
+    const data = (await mongodb.getDb().collection<Product>("products").findOne({ id: id }));
     return data;
 }
 
