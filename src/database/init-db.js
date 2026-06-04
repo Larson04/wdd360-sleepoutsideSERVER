@@ -137,7 +137,7 @@ const createCollections = async (db) => {
         createdAt: Date.now(),
         updatedAt: Date.now()
       });
-
+      // $argon2id$v=19$m=65536,t=3,p=4$sBIrPg3+iNUy7touJyepHw$vThlRPParpBB3FzW1iRvhFiU55EXtCW9nwvet9ne2tU
       console.log(
         `${result.insertedCount} new user created with the following id(s):`
       );
