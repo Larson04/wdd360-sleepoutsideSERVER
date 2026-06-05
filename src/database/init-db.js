@@ -127,7 +127,7 @@ const createCollections = async (db) => {
     await db.createCollection("users");
     console.log("Collection 'users' created successfully");
 
-    const hashedPassword = await argon2.hash("password");
+    const hashedPassword = await argon2.hash("test1234");
 
     const result = await db.collection("users").insertOne(
       {
@@ -137,7 +137,7 @@ const createCollections = async (db) => {
         createdAt: Date.now(),
         updatedAt: Date.now()
       });
-
+      // $argon2id$v=19$m=65536,t=3,p=4$sBIrPg3+iNUy7touJyepHw$vThlRPParpBB3FzW1iRvhFiU55EXtCW9nwvet9ne2tU
       console.log(
         `${result.insertedCount} new user created with the following id(s):`
       );

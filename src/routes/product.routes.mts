@@ -1,4 +1,4 @@
-import {Router } from "express";
+import { Router } from "express";
 import productService from "../services/product.service.mts";
 import EntityNotFoundError from "../errors/EntityNotFoundError.mts";
 import { buildPaginationWrapper, sanitize } from "../services/utils.mts";
