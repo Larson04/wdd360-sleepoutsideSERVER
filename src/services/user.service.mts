@@ -26,7 +26,7 @@ async function login(email:string, password:string) {
         if(await argon2.verify(user.password, password)) {
             // If the user exists and password matches...then generate a token using jsonwebtoken
             // Send back the token and some user info to the route either or both could be null.
-            token = generateToken(user);
+            token = await generateToken(user);
         }
     }
         

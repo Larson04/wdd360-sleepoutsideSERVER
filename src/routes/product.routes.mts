@@ -42,6 +42,17 @@ router.get("/:id", async (req, res, next) => {
   
 });
 
-
+// GET /products/search
+router.get("/search/:queryString", async (req, res, next) => {
+  const {queryString} = req.params;
+  if (!queryString) {
+    return next(new EntityNotFoundError({message : 'Search term required', code: 'ERR_VALID', statusCode : 400}))
+  }
+  const productList = await productService.searchProducts(queryString);
+  if (!productList) {
+    return next(new EntityNotFoundError({message : `No products matched your search`, code: 'ERR_NF', statusCode : 400}))
+  }
+  res.status(200).json(productList);
+})
 
 export default router; // Export the router to use it in the main file

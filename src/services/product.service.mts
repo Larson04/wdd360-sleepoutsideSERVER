@@ -51,7 +51,13 @@ return wrapper
 const getProductById = async (id: string) => {
   return await productModel.getProductById(id);
 };
+
+const searchProducts = async (query: string) => {
+  return await productModel.searchProducts(query);
+}
+
 export default {
   getAllProducts,
-  getProductById
+  getProductById,
+  searchProducts
 };
