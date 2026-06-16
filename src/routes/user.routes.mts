@@ -47,6 +47,7 @@ router.post("/", async (req,res,next) => {
 
 // Protect a route with JWT authentication. Note the authorize middleware! Make sure to import it as well.
 router.get('/protected', authorize, (req, res) => {
+    console.log("authorize called");
     console.log(res.locals.user)
     res.json({ message: `Hello, ${res.locals.user.email}!` });
 });

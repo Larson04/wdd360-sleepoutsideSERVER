@@ -8,11 +8,13 @@ const SECRET_KEY = process.env.JWT_SECRET  || 'your-secret-key';
 function authorize(req: Request, res: Response, next: NextFunction) {
   // make sure there is an authorization header
   const authHeader = req.headers['authorization'];
+  console.log("auth header", authHeader);
   if (authHeader) {
     // get the token from the header. It should look something like this:
     // Bearer asdasdsdjhasdljkashdljsahdljshljhsaldjs
     // we just want the second part so we split(" ")
     const token = authHeader.split(' ')[1] || "";
+    console.log("Extracted token: ", token)
     // check for validity
     jwt.verify(token, SECRET_KEY, (err, user) => {
         if (err) {

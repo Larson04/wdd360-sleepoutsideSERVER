@@ -88,6 +88,7 @@ export function sanitize(v:Record<string, any>) {
 export function generateToken(user:User) {
   const token = process.env.JWT_SECRET || "secret";
   const expiration = process.env.JWT_EXPIRES_IN || "10m";
-  jwt.sign(user, token, { expiresIn: expiration });
+  const jwtUser = {email: user.email, id: user._id}
+  return jwt.sign(jwtUser, token, { expiresIn: expiration });
 
 }

@@ -57,9 +57,24 @@ async function getProductById(id: string): Promise<Product | null> {
     return data;
 }
 
+async function searchProducts(query: string): Promise<Product[] | null> {
+  const data = (await mongodb.getDb().collection<Product>("products").find({
+    $or: [
+      { category : { $regex: query, $options: "i"}},
+      { name : { $regex: query, $options: "i"}},
+      { description : { $regex: query, $options: "i"}},
+    ]
+  }
+  )).toArray();
+
+  return data;
+}  
+
+
 export default {
     getProductById,
-    getAllProducts
+    getAllProducts,
+    searchProducts
 };
 
 
