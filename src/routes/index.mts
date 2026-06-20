@@ -2,6 +2,7 @@ import { Router } from "express";
 import userRoutes from "./user.routes.mts";
 import productRoutes from "./product.routes.mts";
 import swaggerRoutes from "./swagger.routes.mts";
+import newsletterRoutes from "./newsletter.routes.mts";
 
 const router:Router = Router();
 
@@ -15,6 +16,8 @@ router.use("/products", productRoutes);
 
 // login routes
 router.use("/users", userRoutes);
+
+router.use("/newsletter", newsletterRoutes);
 
 router.use(swaggerRoutes);
 

@@ -127,6 +127,12 @@ const createCollections = async (db) => {
     await db.createCollection("users");
     console.log("Collection 'users' created successfully");
 
+    await db.collection("newsletter").drop();
+    console.log("Collection 'newsletter' dropped successfully")
+
+    await db.createCollection("newsletter");
+    console.log("Collection 'newsletter' created successfully")
+
     const hashedPassword = await argon2.hash("test1234");
 
     const result = await db.collection("users").insertOne(

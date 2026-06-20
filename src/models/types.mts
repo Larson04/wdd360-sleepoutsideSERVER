@@ -198,3 +198,9 @@ export interface FindProductObj {
   offset: number,
   fieldFilters?: Projection<Product>
 }
+
+export interface Newsletter {
+  _id: string,
+  name: string,
+  email: string
+}
