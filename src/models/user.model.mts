@@ -20,7 +20,7 @@ async function getUserByEmail(email: string): Promise<User | null> {
 
 async function createUser(newUser:{email:string, password:string, name:string}) {
     const result = await mongodb.getDb().collection("users").insertOne(newUser)
-    return result
+    return result;
 }
 
 export default {

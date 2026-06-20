@@ -467,3 +467,24 @@ export const ProductSchema = {
     },
     required: ["title", "type", "status", "createdAt", "modifiedAt"]
   };
+
+export const NewsletterSchema: JSONSchema7 = {
+  $schema: "http://json-schema.org/draft-07/schema#",
+  title: "Newsletter",
+  description: "Schema for validating newsletter signups",
+  type: "object",
+  properties: {
+    name: { 
+      type: "string",
+      description: "The user's full name"
+    },
+    email: { 
+      type: "string",
+      format: "email",
+      description: "The user's valid email address"
+    }
+  },
+  required: ["name", "email"],
+  additionalProperties: false
+};
+
